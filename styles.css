@@ -4,28 +4,44 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
 }
 
 .container {
-    background-color: red;
+    height: 100vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px
 }
 
 .grid {
-    width: 500px;
-    height: 500px;
-    border: 3px solid black;
+    width: 80vmin;
+    height: 80vmin;
     display: flex;
     flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+.control {
+    width: 20vmin;
+    height: 80vmin;
+    background-color: black;
+    border-radius: 10px;
 }
 
 .square {
-    border: 2px solid gray;
-    aspect-ratio: 1 / 1;
+    flex: 1 0 calc(100% / 10);
+    aspect-ratio: 1/1;
+    border: 1px solid gray;
 }
