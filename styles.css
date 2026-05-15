@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Outfit:wght@100..900&display=swap');
+
+:root {
+    --main: #222831;   
+    --surface: #393E46;    
+    --accent: #00ADB5;      
+    --text-main: #EEEEEE;   
+  }
+
 * {
     padding: 0;
     margin: 0;
@@ -13,16 +22,19 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    background-color: var(--main);
+}
+
+p {
+    font-weight: bold;
+    font-size: 40px;
+    font-family: "Outfit", sans-serif;
 }
 
 .container {
-    height: 100vh;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 20px
+    justify-content: space-around;
+    flex: 1;
 }
 
 .grid {
@@ -31,17 +43,86 @@ body {
     display: flex;
     flex-wrap: wrap;
     flex-shrink: 0;
+    border: 1px solid gray;
+    box-shadow: 8px 8px 15px 10px rgba(0, 0, 0, 0.25);
+    background-color: var(--text-main);
+}
+
+.side-space {
+    flex: 1;
+    display: flex;
+}
+
+.center {
+    flex: 3;
+    width: 80vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 .control {
     width: 20vmin;
-    height: 80vmin;
-    background-color: black;
+    background-color: var(--surface);
     border-radius: 10px;
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0px 10px 15px 10px;
 }
 
 .square {
-    flex: 1 0 calc(100% / 10);
+    flex: 1 0 calc(100% / var(--size));
     aspect-ratio: 1/1;
-    border: 1px solid gray;
+    outline: 1px solid gray;
+    background-color: var(--text-main);
+}
+
+.info-size, .color-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+#textValueSize {
+    margin: 15px;
+    color: whitesmoke;
+    display: flex;
+    width: 3ch;
+    align-items: center;  
+    justify-content: center;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;  
+    border: 2px solid #666;
+    box-shadow: 0px 0px 10px 1px rgba(45,255,196,0.63);
+}
+
+button {
+    width: 120px;
+    height: 50px;
+    color: var(--text-main);
+    background-color: var(--accent);
+    font-size: 17px;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    color: #eeeeeeac;
+    background-color: #00acb5ad;
+}
+
+button:active {
+	position:relative;
+	top:1px;
+}
+
+.button-on {
+    box-shadow: inset 0px 0px 8px 2px #000000
 }
