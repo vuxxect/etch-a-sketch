@@ -42,26 +42,63 @@ function getRandomColor() {
     return `rgb(${randomRgbValue()}, ${randomRgbValue()}, ${randomRgbValue()})`
 }
 
+function colorSquare(event) {
+    event.preventDefault();
+
+    if (!event.target.classList.contains('square') || event.buttons !== 1) {
+        return;
+    }
+    if (currentMode == 'black') {
+        event.target.style.backgroundColor = 'black';
+        return;
+    }
+    if (currentMode == 'rgbMode') {
+        event.target.style.backgroundColor = getRandomColor();
+        return;
+    }
+    if (currentMode == 'eraserMode') {
+        event.target.style.backgroundColor = '';
+        return;
+    }
+}
+
+function offBtns() {
+    modeBtns.forEach(function (btn){
+        btn.classList.remove("button-on");
+    })
+}
+
 const grid = document.querySelector('.grid');
+const modeBtns = document.querySelectorAll('.mode-btn')
 const rgbBtn = document.querySelector('#rgbBtn');
 const sizeBtn = document.querySelector('#sizeBtn');
 const textValueSize = document.querySelector('#textValueSize');
-let rgbMode = false;
+const eraserBtn = document.querySelector('#eraserBtn');
+let currentMode = 'black';
 
 makeGrid(10);
 
 sizeBtn.addEventListener('click', changeGridSize);
-rgbBtn.addEventListener('click', () => {
-    rgbMode = !rgbMode;
-    rgbBtn.classList.toggle("button-on")
-});
 
-grid.addEventListener('mousemove', (event) => {
-    if (event.target.classList.contains('square')) {
-        if (rgbMode) {
-            event.target.style.backgroundColor = getRandomColor();
-        } else {
-            event.target.style.backgroundColor = 'black';
-        }
+rgbBtn.addEventListener('click', () => {
+    offBtns()
+    if (currentMode == "rgbMode") {
+        currentMode = "black";
+    } else {
+        currentMode = "rgbMode";
+        rgbBtn.classList.add("button-on")
     }
 });
+
+eraserBtn.addEventListener('click', () => {
+    offBtns()
+    if (currentMode == "eraserMode") {
+        currentMode = "black";
+    } else {
+        currentMode = "eraserMode";
+        eraserBtn.classList.add("button-on")
+    }
+});
+
+grid.addEventListener('mouseover', colorSquare);
+grid.addEventListener('mousedown', colorSquare);
