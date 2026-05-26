@@ -48,8 +48,12 @@ function colorSquare(event) {
     if (!event.target.classList.contains('square') || event.buttons !== 1) {
         return;
     }
-    if (currentMode == 'black') {
-        event.target.style.backgroundColor = 'black';
+    if (currentMode !== 'shadingMode') {
+        event.target.style.opacity = '';
+    }
+
+    if (currentMode == 'userColor') {
+        event.target.style.backgroundColor = colorInput.value;
         return;
     }
     if (currentMode == 'rgbMode') {
@@ -60,45 +64,59 @@ function colorSquare(event) {
         event.target.style.backgroundColor = '';
         return;
     }
+    if (currentMode == 'shadingMode') {
+        let opacity = event.target.style.opacity;
+        if (opacity == "") {
+            opacity = 1.0;
+        }
+        event.target.style.opacity = parseFloat(opacity) - 0.1;
+        return;
+    }
 }
-
-function offBtns() {
+    
+function toggleBtn(turnMode, activeBtn) {
     modeBtns.forEach(function (btn){
         btn.classList.remove("button-on");
     })
+    
+    if (currentMode == turnMode && turnMode !== "userColor") {
+        currentMode = "userColor";
+        colorPickBtn.classList.add("button-on");
+    } else {
+        currentMode = turnMode ;
+        activeBtn.classList.add("button-on");
+    }
 }
 
 const grid = document.querySelector('.grid');
 const modeBtns = document.querySelectorAll('.mode-btn')
+const colorInput = document.querySelector('#colorInput')
 const rgbBtn = document.querySelector('#rgbBtn');
 const sizeBtn = document.querySelector('#sizeBtn');
 const textValueSize = document.querySelector('#textValueSize');
 const eraserBtn = document.querySelector('#eraserBtn');
-let currentMode = 'black';
+const shadingBtn = document.querySelector('#shadingBtn');
+const colorPickBtn = document.querySelector('#colorPick');
+const colorFrame = document.querySelector('.color-frame');
+let currentMode = 'userColor';
 
 makeGrid(10);
 
 sizeBtn.addEventListener('click', changeGridSize);
 
-rgbBtn.addEventListener('click', () => {
-    offBtns()
-    if (currentMode == "rgbMode") {
-        currentMode = "black";
-    } else {
-        currentMode = "rgbMode";
-        rgbBtn.classList.add("button-on")
-    }
+rgbBtn.addEventListener('click', () => toggleBtn('rgbMode', rgbBtn));
+eraserBtn.addEventListener('click', () => toggleBtn('eraserMode', eraserBtn));
+shadingBtn.addEventListener('click', () => toggleBtn('shadingMode', shadingBtn));
+
+colorPickBtn.addEventListener('click', () => {
+    toggleBtn('userColor', colorPickBtn)
+    colorInput.click();
 });
 
-eraserBtn.addEventListener('click', () => {
-    offBtns()
-    if (currentMode == "eraserMode") {
-        currentMode = "black";
-    } else {
-        currentMode = "eraserMode";
-        eraserBtn.classList.add("button-on")
-    }
+colorInput.addEventListener('input', () => {
+    colorFrame.style.backgroundColor = colorInput.value;
 });
 
 grid.addEventListener('mouseover', colorSquare);
 grid.addEventListener('mousedown', colorSquare);
+colorPickBtn.classList.add("button-on");

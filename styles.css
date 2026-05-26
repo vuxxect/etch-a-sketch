@@ -45,7 +45,7 @@ p {
     flex-shrink: 0;
     border: 1px solid gray;
     box-shadow: 8px 8px 15px 10px rgba(0, 0, 0, 0.25);
-    background-color: var(--text-main);
+    background-color: black;
 }
 
 .side-space {
@@ -108,9 +108,12 @@ button {
     font-size: 17px;
     border: none;
     border-radius: 10px;
-    padding: 8px 15px;
     cursor: pointer;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
 }
 
 button:hover {
@@ -125,4 +128,19 @@ button:active {
 
 .button-on {
     box-shadow: inset 0px 0px 8px 2px #000000
+}
+
+input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.color-frame {
+    width: 17px;
+    height: 17px;
+    background-color: #000000;
+    border-radius: 15px;
 }
